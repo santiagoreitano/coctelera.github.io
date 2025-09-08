@@ -1,0 +1,195 @@
+[
+  {
+    "id": 1,
+    "nombre": "Mojito Clásico",
+    "tipo": "Refrescante",
+    "familia": "Clásicos",
+    "puntaje": 8.5,
+    "descripcion": "El cóctel cubano más famoso del mundo, refrescante y aromático con menta fresca.",
+    "ingredientes": ["Ron blanco", "Menta fresca", "Azúcar", "Lima", "Agua con gas"],
+    "preparacion": [
+      "Machacar suavemente las hojas de menta con azúcar en el fondo del vaso",
+      "Agregar el jugo de lima fresca",
+      "Llenar el vaso con hielo picado",
+      "Añadir el ron blanco y mezclar suavemente",
+      "Completar con agua con gas",
+      "Decorar con una ramita de menta fresca"
+    ],
+    "dificultad": "Fácil",
+    "tiempo": "5 min",
+    "imagen": "/placeholder.svg?height=300&width=300"
+  },
+  {
+    "id": 2,
+    "nombre": "Margarita",
+    "tipo": "Aperitivo",
+    "familia": "Clásicos",
+    "puntaje": 9.0,
+    "descripcion": "El cóctel mexicano por excelencia, perfecto equilibrio entre tequila, lima y triple sec.",
+    "ingredientes": ["Tequila", "Triple sec", "Jugo de lima", "Sal", "Hielo"],
+    "preparacion": [
+      "Escarchar el borde del vaso con sal",
+      "En una coctelera, agregar tequila, triple sec y jugo de lima",
+      "Llenar la coctelera con hielo y agitar vigorosamente",
+      "Colar en el vaso preparado con hielo fresco",
+      "Decorar con una rodaja de lima"
+    ],
+    "dificultad": "Fácil",
+    "tiempo": "3 min",
+    "imagen": "/placeholder.svg?height=300&width=300"
+  },
+  {
+    "id": 3,
+    "nombre": "Piña Colada",
+    "tipo": "Tropical",
+    "familia": "Tropicales",
+    "puntaje": 7.8,
+    "descripcion": "El sabor del Caribe en un vaso, cremoso y tropical con piña y coco.",
+    "ingredientes": ["Ron blanco", "Crema de coco", "Jugo de piña", "Hielo", "Piña fresca"],
+    "preparacion": [
+      "En una licuadora, combinar ron, crema de coco y jugo de piña",
+      "Agregar hielo y licuar hasta obtener consistencia cremosa",
+      "Servir en vaso hurricane",
+      "Decorar con una rodaja de piña y cereza"
+    ],
+    "dificultad": "Fácil",
+    "tiempo": "4 min",
+    "imagen": "/placeholder.svg?height=300&width=300"
+  },
+  {
+    "id": 4,
+    "nombre": "Old Fashioned",
+    "tipo": "Digestivo",
+    "familia": "Clásicos",
+    "puntaje": 9.2,
+    "descripcion": "Un clásico atemporal que resalta la calidad del whiskey con toques de azúcar y bitter.",
+    "ingredientes": ["Whiskey bourbon", "Azúcar morena", "Angostura bitter", "Cáscara de naranja", "Hielo"],
+    "preparacion": [
+      "En un vaso old fashioned, disolver el azúcar con unas gotas de bitter",
+      "Agregar el whiskey y mezclar suavemente",
+      "Llenar con hielo grande",
+      "Expresar los aceites de la cáscara de naranja sobre el trago",
+      "Decorar con la cáscara de naranja"
+    ],
+    "dificultad": "Intermedio",
+    "tiempo": "4 min",
+    "imagen": "/placeholder.svg?height=300&width=300"
+  },
+  {
+    "id": 5,
+    "nombre": "Cosmopolitan",
+    "tipo": "Aperitivo",
+    "familia": "Modernos",
+    "puntaje": 8.0,
+    "descripcion": "Elegante y sofisticado, el cóctel que conquistó las ciudades cosmopolitas.",
+    "ingredientes": ["Vodka", "Triple sec", "Jugo de arándano", "Jugo de lima", "Hielo"],
+    "preparacion": [
+      "En una coctelera con hielo, agregar vodka y triple sec",
+      "Añadir jugo de arándano y jugo de lima fresca",
+      "Agitar vigorosamente durante 15 segundos",
+      "Colar en copa martini fría",
+      "Decorar con una rodaja de lima"
+    ],
+    "dificultad": "Fácil",
+    "tiempo": "3 min",
+    "imagen": "/placeholder.svg?height=300&width=300"
+  },
+  {
+    "id": 6,
+    "nombre": "Negroni",
+    "tipo": "Aperitivo",
+    "familia": "Clásicos",
+    "puntaje": 8.7,
+    "descripcion": "Amargo y complejo, perfecto para paladares sofisticados que buscan intensidad.",
+    "ingredientes": ["Gin", "Campari", "Vermouth rojo", "Cáscara de naranja", "Hielo"],
+    "preparacion": [
+      "En un vaso old fashioned con hielo, agregar gin",
+      "Añadir Campari y vermouth rojo en partes iguales",
+      "Mezclar suavemente con una cuchara de bar",
+      "Expresar aceites de cáscara de naranja",
+      "Decorar con la cáscara de naranja"
+    ],
+    "dificultad": "Fácil",
+    "tiempo": "2 min",
+    "imagen": "/placeholder.svg?height=300&width=300"
+  },
+  {
+    "id": 7,
+    "nombre": "Aperol Spritz",
+    "tipo": "Aperitivo",
+    "familia": "Modernos",
+    "puntaje": 7.5,
+    "descripcion": "Refrescante y ligero, perfecto para tardes de verano con su color naranja vibrante.",
+    "ingredientes": ["Aperol", "Prosecco", "Agua con gas", "Naranja", "Hielo"],
+    "preparacion": [
+      "Llenar una copa de vino con hielo",
+      "Agregar Aperol",
+      "Completar con Prosecco",
+      "Añadir un splash de agua con gas",
+      "Mezclar suavemente",
+      "Decorar con una rodaja de naranja"
+    ],
+    "dificultad": "Fácil",
+    "tiempo": "2 min",
+    "imagen": "/placeholder.svg?height=300&width=300"
+  },
+  {
+    "id": 8,
+    "nombre": "Martini Sucio",
+    "tipo": "Aperitivo",
+    "familia": "Clásicos",
+    "puntaje": 8.3,
+    "descripcion": "La versión salada del clásico martini, con el toque distintivo del jugo de aceitunas.",
+    "ingredientes": ["Gin", "Vermouth seco", "Jugo de aceitunas", "Aceitunas verdes", "Hielo"],
+    "preparacion": [
+      "En una coctelera con hielo, agregar gin y vermouth seco",
+      "Añadir una cucharada de jugo de aceitunas",
+      "Agitar o mezclar según preferencia",
+      "Colar en copa martini fría",
+      "Decorar con aceitunas verdes ensartadas"
+    ],
+    "dificultad": "Intermedio",
+    "tiempo": "3 min",
+    "imagen": "/placeholder.svg?height=300&width=300"
+  },
+  {
+    "id": 9,
+    "nombre": "Moscow Mule",
+    "tipo": "Refrescante",
+    "familia": "Modernos",
+    "puntaje": 8.1,
+    "descripcion": "Servido tradicionalmente en taza de cobre, combina vodka con el picante del ginger beer.",
+    "ingredientes": ["Vodka", "Ginger beer", "Jugo de lima", "Lima", "Pepino", "Hielo"],
+    "preparacion": [
+      "En una taza de cobre o vaso highball con hielo, agregar vodka",
+      "Añadir jugo de lima fresca",
+      "Completar with ginger beer",
+      "Mezclar suavemente",
+      "Decorar con rodajas de lima y pepino",
+      "Servir con pajita de metal"
+    ],
+    "dificultad": "Fácil",
+    "tiempo": "3 min",
+    "imagen": "/placeholder.svg?height=300&width=300"
+  },
+  {
+    "id": 10,
+    "nombre": "Whiskey Sour",
+    "tipo": "Digestivo",
+    "familia": "Clásicos",
+    "puntaje": 8.8,
+    "descripcion": "Equilibrio perfecto entre dulce y ácido, con la opción de clara de huevo para textura sedosa.",
+    "ingredientes": ["Whiskey bourbon", "Jugo de limón", "Jarabe simple", "Clara de huevo", "Cereza", "Hielo"],
+    "preparacion": [
+      "En coctelera, agregar whiskey, jugo de limón y jarabe simple",
+      "Añadir clara de huevo (opcional)",
+      "Agitar en seco primero, luego con hielo",
+      "Agitar vigorosamente por 15 segundos",
+      "Colar en vaso old fashioned con hielo",
+      "Decorar con cereza y rodaja de limón"
+    ],
+    "dificultad": "Intermedio",
+    "tiempo": "4 min",
+    "imagen": "/placeholder.svg?height=300&width=300"
+  }
+]

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍸 Recetario de Cócteles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .slider {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: #e2e8f0;
+            outline: none;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #10b981;
+            cursor: pointer;
+        }
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #10b981;
+            cursor: pointer;
+            border: none;
+        }
+        /* Added smooth transitions and hover effects */
+        .cocktail-card {
+            transition: all 0.3s ease;
+        }
+        .cocktail-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200 shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">🍸 Recetario de Cócteles</h1>
+                <div class="flex gap-2">
+                    <button id="addNewBtn" class="flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors shadow-md">
+                        <i data-lucide="plus" class="h-4 w-4"></i>
+                        Nuevo Cóctel
+                    </button>
+                    <button id="toggleFiltersBtn" class="flex items-center gap-2 border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors">
+                        <i data-lucide="filter" class="h-4 w-4"></i>
+                        Filtros
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-4 relative">
+                <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4"></i>
+                <input 
+                    id="searchInput" 
+                    type="text" 
+                    placeholder="Buscar cócteles por nombre..." 
+                    class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
+                >
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-6">
+        <div class="flex gap-6">
+            <!-- Filters Sidebar -->
+            <aside id="filtersSidebar" class="w-80 space-y-6 hidden">
+                <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                        <i data-lucide="sliders-horizontal" class="h-5 w-5"></i>
+                        Filtros
+                    </h3>
+                    
+                    <!-- Family Filter -->
+                    <div class="mb-4">
+                        <label class="text-sm font-medium mb-2 block">Familia</label>
+                        <select id="familySelect" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 transition-all">
+                            <option value="all">Todas las familias</option>
+                        </select>
+                    </div>
+
+                    <!-- Agregando filtro de tipo de trago -->
+                    <div class="mb-4">
+                        <label class="text-sm font-medium mb-2 block">Tipo de trago</label>
+                        <select id="typeSelect" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 transition-all">
+                            <option value="all">Todos los tipos</option>
+                        </select>
+                    </div>
+
+                    <!-- Score Filter -->
+                    <div class="mb-4">
+                        <label class="text-sm font-medium mb-2 block">Puntaje mínimo: <span id="scoreValue" class="text-emerald-600 font-bold">0</span></label>
+                        <input type="range" id="scoreSlider" min="0" max="10" step="0.1" value="0" class="slider w-full">
+                    </div>
+
+                    <!-- Match Mode -->
+                    <div class="mb-4">
+                        <label class="text-sm font-medium mb-2 block">Modo de búsqueda</label>
+                        <select id="matchModeSelect" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 transition-all">
+                            <option value="flexible">Flexible (al menos un ingrediente)</option>
+                            <option value="strict">Estricto (solo estos ingredientes)</option>
+                        </select>
+                    </div>
+
+                    <!-- Ingredients Filter -->
+                    <div class="mb-4">
+                        <label class="text-sm font-medium mb-2 block">Ingredientes (<span id="selectedCount" class="text-emerald-600 font-bold">0</span> seleccionados)</label>
+                        <div id="ingredientsList" class="max-h-60 overflow-y-auto space-y-2 border rounded-lg p-3 bg-gray-50">
+                        </div>
+                    </div>
+
+                    <button id="clearFiltersBtn" class="w-full border border-gray-300 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <i data-lucide="refresh-cw" class="h-4 w-4 inline mr-2"></i>
+                        Limpiar filtros
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="flex-1">
+                <div class="mb-6 flex items-center justify-between">
+                    <p id="resultsCount" class="text-gray-600 font-medium">0 cócteles encontrados</p>
+                    <div id="selectedIngredientsBadges" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <div id="cocktailsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+
+                <div id="noResults" class="text-center py-16 hidden">
+                    <div class="mb-4">
+                        <i data-lucide="search-x" class="h-16 w-16 mx-auto text-gray-300"></i>
+                    </div>
+                    <p class="text-gray-500 text-lg mb-4">No se encontraron cócteles con los filtros seleccionados</p>
+                    <button id="clearFiltersBtn2" class="border border-gray-300 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <i data-lucide="refresh-cw" class="h-4 w-4 inline mr-2"></i>
+                        Limpiar filtros
+                    </button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Recipe Detail Modal -->
+    <div id="recipeModal" class="modal">
+        <div class="modal-content w-full max-w-2xl p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h2 id="recipeTitle" class="text-2xl font-bold flex items-center gap-2">
+                    <i data-lucide="chef-hat" class="h-6 w-6"></i>
+                </h2>
+                <button id="closeRecipeModal" class="text-gray-400 hover:text-gray-600">
+                    <i data-lucide="x" class="h-6 w-6"></i>
+                </button>
+            </div>
+            <div id="recipeContent"></div>
+        </div>
+    </div>
+
+    <!-- Form Modal -->
+    <div id="formModal" class="modal">
+        <div class="modal-content w-full max-w-4xl p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h2 id="formTitle" class="text-xl font-bold">Nuevo Cóctel</h2>
+                <button id="closeFormModal" class="text-gray-400 hover:text-gray-600">
+                    <i data-lucide="x" class="h-6 w-6"></i>
+                </button>
+            </div>
+            <form id="cocktailForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Nombre del cóctel</label>
+                        <input type="text" id="formNombre" required class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Tipo</label>
+                        <select id="formTipo" required class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500">
+                            <option value="">Seleccionar tipo...</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Familia</label>
+                        <select id="formFamilia" required class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500">
+                            <option value="">Seleccionar familia...</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Puntaje (0-10)</label>
+                        <input type="number" id="formPuntaje" min="0" max="10" step="0.1" value="5" required class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Dificultad</label>
+                        <select id="formDificultad" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500">
+                            <option value="Fácil">Fácil</option>
+                            <option value="Intermedio">Intermedio</option>
+                            <option value="Difícil">Difícil</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Tiempo de preparación</label>
+                        <input type="text" id="formTiempo" required placeholder="Ej: 5 min" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">Descripción</label>
+                    <textarea id="formDescripcion" rows="3" required class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500"></textarea>
+                </div>
+
+                <!-- Reemplazando URL de imagen con selector de archivo -->
+                <div>
+                    <label class="block text-sm font-medium mb-1">Imagen del cóctel</label>
+                    <div class="space-y-3">
+                        <input type="file" id="formImageFile" accept="image/*" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
+                        <div id="imagePreview" class="hidden">
+                            <img id="previewImg" src="/placeholder.svg" alt="Vista previa" class="w-32 h-32 object-cover rounded-lg border border-gray-300">
+                        </div>
+                        <p class="text-xs text-gray-500">Selecciona una imagen desde tu dispositivo (JPG, PNG, GIF)</p>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Ingredientes</label>
+                    <!-- Reemplazando input simple con selector de ingredientes del config -->
+                    <div class="grid grid-cols-12 gap-2 mb-2">
+                        <input type="number" id="newIngredientQuantity" placeholder="Cant." step="0.25" min="0" class="col-span-2 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500">
+                        <select id="newIngredientUnit" class="col-span-2 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500">
+                            <option value="oz">oz</option>
+                            <option value="ml">ml</option>
+                            <option value="gotas">gotas</option>
+                            <option value="dash">dash</option>
+                            <option value="cucharada">cda</option>
+                            <option value="cucharadita">cdta</option>
+                            <option value="taza">taza</option>
+                            <option value="pizca">pizca</option>
+                        </select>
+                        <select id="newIngredient" class="col-span-7 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500">
+                            <option value="">Seleccionar ingrediente...</option>
+                        </select>
+                        <button type="button" id="addIngredientBtn" class="col-span-1 bg-emerald-600 text-white px-3 py-2 rounded-md hover:bg-emerald-700">
+                            <i data-lucide="plus" class="h-4 w-4"></i>
+                        </button>
+                    </div>
+                    <div id="ingredientsList" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Pasos de preparación</label>
+                    <div class="flex gap-2 mb-2">
+                        <textarea id="newStep" placeholder="Agregar paso de preparación" rows="2" class="flex-1 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-emerald-500"></textarea>
+                        <button type="button" id="addStepBtn" class="bg-emerald-600 text-white px-3 py-2 rounded-md hover:bg-emerald-700">
+                            <i data-lucide="plus" class="h-4 w-4"></i>
+                        </button>
+                    </div>
+                    <div id="stepsList" class="space-y-2"></div>
+                </div>
+
+                <div class="flex gap-2 justify-end">
+                    <button type="button" id="cancelFormBtn" class="border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-50">Cancelar</button>
+                    <button type="submit" id="submitFormBtn" class="bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700">Crear Cóctel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <!-- Initialize Lucide icons after DOM load -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>
